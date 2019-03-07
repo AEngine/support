@@ -189,13 +189,14 @@ if (!function_exists('form')) {
      * Generate HTML5 form
      *
      * @param string $type
+     * @param string $name
      * @param array  $args
      *
      * @return string
      */
-    function form($type, $args = [])
+    function form($type, $name, $args = [])
     {
-        return Form::__callStatic($type, $args);
+        return Form::__callStatic($type, [$name, $args]);
     }
 }
 
