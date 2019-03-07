@@ -1,6 +1,7 @@
 <?php
 
 use AEngine\Support\Crypta;
+use AEngine\Support\Form;
 use AEngine\Support\Str;
 
 if (!function_exists('pre')) {
@@ -183,17 +184,33 @@ if (!function_exists('str_convert_size')) {
     }
 }
 
+if (!function_exists('form')) {
+    /**
+     * Generate HTML5 form
+     *
+     * @param string $type
+     * @param array  $args
+     *
+     * @return string
+     */
+    function form($type, $args = [])
+    {
+        return Form::__callStatic($type, $args);
+    }
+}
+
 if (!function_exists('crypta_encrypt')) {
     /**
      * Encrypt transmitted string
      *
      * @param string $input
+     * @param string $secret
      *
      * @return string
      */
-    function crypta_encrypt($input)
+    function crypta_encrypt($input, $secret = '')
     {
-        return Crypta::encrypt($input);
+        return Crypta::encrypt($input, $secret);
     }
 }
 
@@ -202,12 +219,13 @@ if (!function_exists('crypta_decrypt')) {
      * Decrypt passed string
      *
      * @param string $input
+     * @param string $secret
      *
      * @return string
      */
-    function crypta_decrypt($input)
+    function crypta_decrypt($input, $secret = '')
     {
-        return Crypta::decrypt($input);
+        return Crypta::decrypt($input, $secret);
     }
 }
 
@@ -216,12 +234,13 @@ if (!function_exists('crypta_hash')) {
      * Generate hash sum for a row
      *
      * @param string $string
+     * @param string $secret
      *
      * @return string
      */
-    function crypta_hash($string)
+    function crypta_hash($string, $secret = '')
     {
-        return Crypta::hash($string);
+        return Crypta::hash($string, $secret);
     }
 }
 

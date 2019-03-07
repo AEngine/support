@@ -2,7 +2,7 @@
 
 namespace AEngine\Support;
 
-use AEngine\Traits\Macroable;
+use AEngine\Support\Traits\Macroable;
 
 /**
  * @method static string text(string $name, array $options = [])

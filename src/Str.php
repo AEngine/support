@@ -2,7 +2,7 @@
 
 namespace AEngine\Support;
 
-use AEngine\Traits\Macroable;
+use AEngine\Support\Traits\Macroable;
 
 class Str
 {

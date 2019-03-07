@@ -2,7 +2,7 @@
 
 namespace AEngine\Support;
 
-use AEngine\Traits\Macroable;
+use AEngine\Support\Traits\Macroable;
 
 class Crypta
 {
@@ -12,12 +12,26 @@ class Crypta
      * Encrypt transmitted string
      *
      * @param string $input
+     * @param string $secret
      *
      * @return string
      */
-    public static function encrypt($input)
+    public static function encrypt($input, $secret = '')
     {
-        return base64_encode(static::crypt($input));
+        return base64_encode(static::crypt($input, $secret));
+    }
+
+    /**
+     * Decrypt passed string
+     *
+     * @param string $input
+     * @param string $secret
+     *
+     * @return string
+     */
+    public static function decrypt($input, $secret = '')
+    {
+        return static::crypt(base64_decode($input), $secret);
     }
 
     /**
@@ -28,7 +42,7 @@ class Crypta
      *
      * @return string
      */
-    protected static function crypt($input, $secret = '')
+    protected static function crypt($input, $secret)
     {
         $salt = md5($secret);
         $len = mb_strlen($input);
@@ -39,18 +53,6 @@ class Crypta
         }
 
         return $input ^ $gamma;
-    }
-
-    /**
-     * Decrypt passed string
-     *
-     * @param string $input
-     *
-     * @return string
-     */
-    public static function decrypt($input)
-    {
-        return static::crypt(base64_decode($input));
     }
 
     /**

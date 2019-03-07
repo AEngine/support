@@ -1,6 +1,6 @@
 <?php
 
-namespace AEngine\Traits;
+namespace AEngine\Support\Traits;
 
 use BadMethodCallException;
 use Closure;

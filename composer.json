@@ -19,6 +19,9 @@
             "role": "Developer"
         }
     ],
+    "suggest": {
+        "ext-mbstring": "*"
+    },
     "require": {
         "php": ">=7.0"
     },
