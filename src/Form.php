@@ -136,7 +136,7 @@ class Form
                 ];
                 $data = array_merge($default, $attr, $data);
 
-                $form .= '<select  ' . static::getAttr($data) . '>';
+                $form .= '<select ' . static::getAttr($data) . '>';
                 foreach ($data['option'] as $key => $val) {
                     $form .= '<option';
                     $form .= ' value="' . $key . '"';
