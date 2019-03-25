@@ -111,7 +111,7 @@ if (!function_exists('str_truncate')) {
     }
 }
 
-if (!function_exists('str_truncate')) {
+if (!function_exists('str_eos')) {
     /**
      * Slope of the word, depending on the number
      *
