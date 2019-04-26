@@ -69,14 +69,14 @@ if (!function_exists('str_starts_with')) {
     /**
      * Determine if a given string starts with a given substring.
      *
-     * @param string       $haystack
      * @param string|array $needles
+     * @param string       $haystack
      *
      * @return bool
      */
-    function str_starts_with($haystack, $needles)
+    function str_starts_with($needles, $haystack)
     {
-        return Str::start($haystack, $needles);
+        return Str::start($needles, $haystack);
     }
 }
 
@@ -84,14 +84,14 @@ if (!function_exists('str_ends_with')) {
     /**
      * Determine if a given string ends with a given substring.
      *
-     * @param string       $haystack
      * @param string|array $needles
+     * @param string       $haystack
      *
      * @return bool
      */
-    function str_ends_with($haystack, $needles)
+    function str_ends_with($needles, $haystack)
     {
-        return Str::end($haystack, $needles);
+        return Str::end($needles, $haystack);
     }
 }
 
