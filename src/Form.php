@@ -85,6 +85,18 @@ class Form
     }
 
     /**
+     * @param string $name
+     * @param array  $option
+     * @param array  $data
+     *
+     * @return string
+     */
+    public static function select($name, array $option = [], array $data = [])
+    {
+        return static::render(array_merge($data, ['name' => $name, 'type' => 'select', 'option' => $option]));
+    }
+
+    /**
      * @param array $data
      *
      * @return string
@@ -227,27 +239,27 @@ class Form
         // substituted values
         switch (strtolower($data['method'])) {
             case 'get':
-                if (isset($_GET[$data['name']])) {
-                    if (in_array($data['type'], ['radio', 'checkbox'])) {
-                        if ($_GET[$data['name']] == $data['value']) {
-                            $data['checked'] = true;
-                        }
-                    } else {
-                        $data['value'] = $_GET[$data['name']];
-                    }
-                }
+                $value = static::getValue($_GET, $data['name']);
                 break;
             case 'post':
-                if (isset($_POST[$data['name']])) {
-                    if (in_array($data['type'], ['radio', 'checkbox'])) {
-                        if ($_POST[$data['name']] == $data['value']) {
-                            $data['checked'] = true;
-                        }
-                    } else {
-                        $data['value'] = $_POST[$data['name']];
-                    }
-                }
+                $value = static::getValue($_POST, $data['name']);
                 break;
+            default:
+                $value = null;
+        }
+
+        if ($value) {
+            switch ($data['type']) {
+                case 'radio':
+                case 'checkbox':
+                    if ($value == $data['value']) {
+                        $data['checked'] = true;
+                    }
+                    break;
+                default:
+                    $data['value'] = $value;
+                    break;
+            }
         }
 
         if (isset(static::$globalError[$data['name']])) {
@@ -285,15 +297,23 @@ class Form
     }
 
     /**
-     * @param string $name
-     * @param array  $option
-     * @param array  $data
      *
-     * @return string
+     *
+     * @param array  $array
+     * @param string $field
+     *
+     * @return array|mixed
      */
-    public static function select($name, array $option = [], array $data = [])
+    protected static function getValue(array $array, string $field)
     {
-        return static::render(array_merge($data, ['name' => $name, 'type' => 'select', 'option' => $option]));
+        foreach (explode('[', str_replace(']', '', $field)) as $segment) {
+            if (array_key_exists($segment, $array)) {
+                $array = $array[$segment];
+            } else {
+                return null;
+            }
+        }
+
+        return $array;
     }
 }
-
